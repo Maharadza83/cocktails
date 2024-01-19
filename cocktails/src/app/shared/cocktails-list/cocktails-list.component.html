@@ -1,0 +1,7 @@
+<div class="grid grid-cols-7 w-full gap-10">
+  @for (cocktail of cocktails; track cocktail.idDrink) {
+    @if (cocktail.idDrink) {
+      <app-cocktail-card [cocktail]="cocktail" />
+    }
+  }
+</div>

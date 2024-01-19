@@ -1,0 +1,40 @@
+<div class="h-screen w-full bg-neutral-900 grid grid-cols-2 justify-center items-center text-white px-32 gap-x-24">
+  <div [ngClass]="{'order-2': isLogin()}" class="flex flex-col gap-y-3">
+    <ng-container [ngTemplateOutlet]="isLogin() ? loginTextTpl : registerTextTpl"></ng-container>
+  </div>
+
+  <div>
+    <div class="p-10 rounded-xl bg-neutral-800 w-[620px] flex flex-col gap-y-8">
+      <div class="flex flex-col gap-y-2">
+        <h2 class="text-2xl">
+          @if (isLogin()) {
+            Zaloguj się
+          } @else {
+            Zarejestruj się
+          }
+        </h2>
+        <h4 class="text-sm text-neutral-300">Do naszego serwisu prawdziwych fanów mocnych trunków</h4>
+      </div>
+
+      <router-outlet />
+    </div>
+  </div>
+</div>
+
+<ng-template #loginTextTpl>
+  <i class="text-2xl">
+    Alkohol jest jak miłość. (…) Pierwszy pocałunek to magia, drugi jest intymny, a trzeci trochę odruchowy.
+    Potem dziewczynę się po prostu rozbiera
+  </i>
+
+  <p class="text-sm text-neutral-300">- mówi bohater kultowej powieści „Długie pożegnanie” Raymonda Chandlera</p>
+</ng-template>
+
+<ng-template #registerTextTpl>
+  <i class="text-2xl">
+    Do trzydziestki grzeje żona, po trzydziestce wódka, <br />
+    a potem nawet piec nie ogrzeje.
+  </i>
+
+  <p class="text-sm text-neutral-300">- mówi stare rosyjskie przysłowie</p>
+</ng-template>

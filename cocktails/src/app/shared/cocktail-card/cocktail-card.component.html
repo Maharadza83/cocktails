@@ -1,0 +1,12 @@
+<a [routerLink]="['/cocktail', cocktail.idDrink]" class="hover:scale-105 hover:-rotate-2 transition-transform w-full flex flex-col gap-y-3 bg-neutral-800 shadow-[0_5px_7px_3px_rgba(33,33,33,0.5)] rounded-sm p-2">
+  <div class="w-full aspect-square img-shadow">
+    <img class="object-cover" [src]="cocktail.strDrinkThumb">
+  </div>
+
+  <div class="flex flex-col gap-y-3 justify-between">
+    <div>
+      <p class="text-xl font-bold text-neutral-200">{{ cocktail.strDrink }}</p>
+      <p class="text-sm text-neutral-400">{{ cocktail.strCategory }}</p>
+    </div>
+  </div>
+</a>

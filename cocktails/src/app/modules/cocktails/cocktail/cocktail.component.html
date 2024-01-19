@@ -1,0 +1,55 @@
+<div class="w-[1080px] h-screen flex justify-center items-center">
+  <div class="bg-white w-full shadow-xl rounded-xl flex">
+    <div class="w-1/2 py-10 ps-10 flex flex-col justify-between">
+      <div class="flex flex-col gap-y-10 ">
+        <div class="flex w-full flex-col ">
+          <div class="flex justify-between items-center pe-6">
+            <h1 class="text-4xl font-semibold">
+              @if (loading()) {
+                <div class="h-8 w-64 rounded bg-neutral-500 animate-pulse"></div>
+              } @else {
+                {{ cocktail().strDrink }}
+              }
+            </h1>
+
+              <button (click)="playLottie()">
+                <ng-lottie width="54px" [options]="options" (animationCreated)="animationCreated($event)"></ng-lottie>
+              </button>
+
+          </div>
+          <h2 class="text-lg text-gray-500">
+            @if (loading()) {
+              <div class="bg-neutral-500 w-64 h-7 animate-pulse rounded"></div>
+            } @else {
+              {{ cocktail().strCategory }}
+            }
+          </h2>
+        </div>
+
+        <div>
+          <h1 class="text-2xl font-medium pb-3">Ingredients</h1>
+          <div class="flex flex-wrap gap-3">
+            @for (n of cocktail()?.ingredients;track n;let i = $index) {
+              <app-ingredient [measure]="cocktail().measures[i]" [ingredient]="cocktail()?.ingredients[i]"/>
+            }
+          </div>
+        </div>
+
+        <div class="pe-3 pb-10">
+          <h1 class="text-2xl font-medium pb-3">Instruction</h1>
+          @if (loading()) {
+            <div class="bg-neutral-500 w-full h-14 animate-pulse rounded"></div>
+          } @else {
+            <p class="text-sm text-gray-700 text-justify">{{ cocktail().strInstructions }}</p>
+          }
+        </div>
+      </div>
+
+      <app-cocktail-footer [cocktail]="cocktail()" [loading]="loading()"/>
+    </div>
+
+    <div class="w-1/2">
+      <app-cocktail-side [cocktail]="cocktail()"/>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,44 @@
+<div class="flex gap-x-6 items-center">
+  <div class="flex items-center gap-x-3">
+    <img class="w-6" src="assets/glass-icon.svg" alt="glass icon">
+    <div class="flex flex-col">
+      <p class="text-sm font-medium">Serving</p>
+
+      <p class="text-xs text-neutral-600">
+        @if (loading) {
+          <div class="h-8 w-64 rounded bg-neutral-500 animate-pulse"></div>
+        } @else {
+          {{ cocktail.strGlass }}
+        }
+      </p>
+    </div>
+  </div>
+
+  <div class="w-0.5 h-6 bg-neutral-300"></div>
+
+  <div class="flex items-center gap-x-3">
+    <img class="w-7" src="assets/percentage-outline-icon.svg" alt="percentage icon">
+    <div class="flex flex-col">
+      <p class="text-sm font-medium">Strength</p>
+      <p class="text-xs text-neutral-600">
+        @if (loading) {
+          <div class="h-8 w-64 rounded bg-neutral-500 animate-pulse"></div>
+        } @else {
+          {{ cocktail.strAlcoholic }}
+        }
+      </p>
+    </div>
+  </div>
+
+  @if (cocktail?.strIBA) {
+    <div class="w-0.5 h-6 bg-neutral-300"></div>
+
+    <div class="flex items-center gap-x-3">
+      <img class="w-9" src="assets/shaker-icon.svg" alt="percentage icon">
+      <div class="flex flex-col">
+        <p class="text-sm font-medium">IBA</p>
+        <p class="text-xs text-neutral-600">{{ cocktail.strIBA }}</p>
+      </div>
+    </div>
+  }
+</div>
