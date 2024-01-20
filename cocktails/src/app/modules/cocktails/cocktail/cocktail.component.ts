@@ -1,10 +1,9 @@
 import {
   ChangeDetectionStrategy,
-  Component,
+  Component, computed,
   DestroyRef,
   inject,
-  NgZone,
-  OnInit,
+  OnInit, Signal,
   signal,
   WritableSignal
 } from '@angular/core';
@@ -15,8 +14,9 @@ import {CocktailsService} from "../../../services/cocktails.service";
 import {Cocktail} from "../../../models/cocktail";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {IngredientComponent} from "./components/ingredient/ingredient.component";
-import {AnimationOptions, LottieComponent} from "ngx-lottie";
-import {AnimationItem} from "ngx-lottie/lib/symbols";
+import {UserStore} from "../../../store/user.store";
+import {HeartBtnComponent} from "./components/heart-btn/heart-btn.component";
+
 @Component({
   selector: 'app-cocktail',
   standalone: true,
@@ -24,7 +24,7 @@ import {AnimationItem} from "ngx-lottie/lib/symbols";
     CocktailFooterComponent,
     CocktailSideComponent,
     IngredientComponent,
-    LottieComponent
+    HeartBtnComponent
   ],
   templateUrl: './cocktail.component.html',
   styleUrl: './cocktail.component.scss',
@@ -34,19 +34,12 @@ export class CocktailComponent implements OnInit {
   private readonly activatedRoute: ActivatedRoute = inject(ActivatedRoute);
   private readonly cocktailsService: CocktailsService = inject(CocktailsService);
   private readonly destroyRef: DestroyRef = inject(DestroyRef);
-  private readonly ngZone: NgZone = inject(NgZone);
+  private readonly userStore: UserStore = inject(UserStore);
 
   public readonly loading: WritableSignal<boolean> = signal(false);
   public readonly cocktail: WritableSignal<Cocktail> = signal(null);
 
-  private animationItem: AnimationItem = null;
-
-  public readonly options: AnimationOptions = {
-    path: 'assets/lottie/heart.json',
-    loop: false,
-    autoplay: false,
-    initialSegment: [ 5, 24 ],
-  };
+  public isLoggedIn: Signal<boolean> = computed(() => !!this.userStore.user())
 
   public ngOnInit(): void {
     this.activatedRoute.params.pipe(
@@ -54,16 +47,6 @@ export class CocktailComponent implements OnInit {
     ).subscribe(() => {
       this.fetchCocktail();
     })
-  }
-
-  public animationCreated(animationItem: AnimationItem): void {
-    this.animationItem = animationItem;
-  }
-
-  public playLottie(): void {
-    this.ngZone.runOutsideAngular(() => {
-      this.animationItem.play();
-    });
   }
 
   private fetchCocktail(): void {

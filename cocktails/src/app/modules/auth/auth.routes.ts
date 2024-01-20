@@ -8,16 +8,15 @@ export default [
     path: '',
     component: AuthComponent,
     children: [
-
       {
         path: 'login',
         component: LoginComponent,
-        data: {isLogin: true}
+        data: { isLogin: true }
       },
       {
         path: 'register',
         component: RegisterComponent,
-        data: {isLogin: false}
+        data: { isLogin: false }
       },
       {
         path: '**',

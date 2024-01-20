@@ -1,0 +1,19 @@
+<div class="h-[60px] w-[54px] flex justify-center items-center">
+  <ng-container [ngTemplateOutlet]="loading() ? loadingTpl : contentTpl"></ng-container>
+</div>
+
+<ng-template #loadingTpl>
+  <app-loader [size]="54" />
+</ng-template>
+
+<ng-template #contentTpl>
+  @if (isFav()) {
+    <button (click)="removeFromFav()">
+      <ng-lottie width="54px" [options]="optionsAdd" (animationCreated)="animationCreated($event)"></ng-lottie>
+    </button>
+  } @else {
+    <button (click)="addToFav()">
+      <ng-lottie width="54px" [options]="optionsRemove" (animationCreated)="animationCreated($event)"></ng-lottie>
+    </button>
+  }
+</ng-template>

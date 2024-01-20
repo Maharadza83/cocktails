@@ -3,16 +3,23 @@ import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
 import { provideClientHydration } from '@angular/platform-browser';
-import {provideHttpClient, withFetch} from "@angular/common/http";
+import {provideHttpClient, withFetch, withInterceptors} from "@angular/common/http";
 import {provideLottieOptions} from "ngx-lottie";
+import {provideToastr} from "ngx-toastr";
+import {provideAnimations} from "@angular/platform-browser/animations";
+import {apiInterceptor} from "./interceptors/api.interceptor";
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
     provideClientHydration(),
-    provideHttpClient(withFetch()),
+    provideHttpClient(withFetch(), withInterceptors([
+      apiInterceptor,
+    ])),
     provideLottieOptions({
       player: () => import('lottie-web'),
     }),
+    provideAnimations(),
+    provideToastr(),
   ]
 };

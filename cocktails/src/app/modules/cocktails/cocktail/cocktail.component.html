@@ -1,4 +1,4 @@
-<div class="w-[1080px] h-screen flex justify-center items-center">
+<div class="w-[1080px] height-container flex justify-center items-center">
   <div class="bg-white w-full shadow-xl rounded-xl flex">
     <div class="w-1/2 py-10 ps-10 flex flex-col justify-between">
       <div class="flex flex-col gap-y-10 ">
@@ -11,11 +11,9 @@
                 {{ cocktail().strDrink }}
               }
             </h1>
-
-              <button (click)="playLottie()">
-                <ng-lottie width="54px" [options]="options" (animationCreated)="animationCreated($event)"></ng-lottie>
-              </button>
-
+            @if (isLoggedIn() && cocktail()) {
+              <app-heart-btn [cocktail]="cocktail()" />
+            }
           </div>
           <h2 class="text-lg text-gray-500">
             @if (loading()) {

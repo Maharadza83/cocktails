@@ -1,27 +1,27 @@
-import { Component, OnInit } from '@angular/core';
-// @ts-ignore
-import { AuthService } from '../auth.service';
+import {ChangeDetectionStrategy, Component, computed, inject, Signal} from '@angular/core';
 import {RouterLink} from "@angular/router";
-import {NgIf} from "@angular/common";
+import {UserStore} from "../../store/user.store";
+import {User} from "../../models/user";
+import {NgTemplateOutlet} from "@angular/common";
 
 @Component({
   selector: 'app-top-bar',
-  templateUrl: './top-bar.component.html',
   standalone: true,
   imports: [
     RouterLink,
-    NgIf
+    NgTemplateOutlet
   ],
-  styleUrls: ['./top-bar.component.css']
+  templateUrl: './top-bar.component.html',
+  styleUrl: './top-bar.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TopBarComponent implements OnInit {
+export class TopBarComponent {
+  private readonly userStore: UserStore = inject(UserStore);
 
-  isLoggedIn = false;
+  public readonly user: Signal<User> = computed(() => this.userStore.user());
+  public readonly loading: Signal<boolean> = computed(() => this.userStore.loading());
 
-  constructor(private authService: AuthService) { }
-
-  ngOnInit(): void {
-
-    this.isLoggedIn = this.authService.isLoggedIn();
+  public logOutHandler(): void {
+    this.userStore.logOut();
   }
 }

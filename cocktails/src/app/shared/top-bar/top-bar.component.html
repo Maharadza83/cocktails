@@ -1,12 +1,29 @@
-<div class="top-bar">
-  <div id="login-register">
-    <a routerLink="/auth/login">
-      <i class="fas fa-sign-in-alt"></i> Log In
+<nav class="flex items-center justify-between bg-neutral-800 text-white px-32 py-5">
+  <h1 class="font-bold tracking-wide text-2xl">
+    <a routerLink="/home">
+      <span class="text-red-500">Twój</span> Bar
     </a>
-    <span class="separator">|</span>
-    <a routerLink="/auth/register">
-      <i class="fas fa-user-plus"></i> Register
-    </a>
-  </div>
+  </h1>
 
-</div>
+  <ng-container [ngTemplateOutlet]="loading() ? null : user() ? loggedInTpl : guestTpl" />
+</nav>
+
+<ng-template #loggedInTpl>
+  <div class="flex items-center justify-between gap-x-10">
+    <a class="transition-colors hover:text-red-500 font-semibold" routerLink="/my-favourites">Moje ulubione</a>
+
+    <div class="flex items-center justify-between gap-x-5">
+      <p>{{ user()?.username }}</p>
+      <button (click)="logOutHandler()" class="hover:opacity-70 transition-opacity">
+        <img height="16" width="16" src="assets/logout.svg" />
+      </button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #guestTpl>
+  <div class="flex items-center justify-between gap-x-10">
+    <a class="transition-colors hover:text-red-500 font-semibold" routerLink="/auth/login">Zaloguj</a>
+    <a class="transition-colors hover:text-red-500 font-semibold" routerLink="/auth/register">Zarejestruj</a>
+  </div>
+</ng-template>

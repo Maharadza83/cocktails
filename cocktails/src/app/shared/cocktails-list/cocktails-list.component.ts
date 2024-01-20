@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
-import {Cocktail} from "../../models/cocktail";
 import {CocktailCardComponent} from "../cocktail-card/cocktail-card.component";
+import {Cocktail} from "../../models/cocktail";
 
 @Component({
   selector: 'app-cocktails-list',
@@ -13,5 +13,5 @@ import {CocktailCardComponent} from "../cocktail-card/cocktail-card.component";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CocktailsListComponent {
- @Input() public cocktails: Cocktail[];
+  @Input() public cocktails: Cocktail[];
 }
