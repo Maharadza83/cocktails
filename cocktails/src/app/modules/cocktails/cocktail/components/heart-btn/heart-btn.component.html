@@ -9,11 +9,11 @@
 <ng-template #contentTpl>
   @if (isFav()) {
     <button (click)="removeFromFav()">
-      <ng-lottie width="54px" [options]="optionsAdd" (animationCreated)="animationCreated($event)"></ng-lottie>
+      <img src="assets/h-filled.png" height="32" />
     </button>
   } @else {
     <button (click)="addToFav()">
-      <ng-lottie width="54px" [options]="optionsRemove" (animationCreated)="animationCreated($event)"></ng-lottie>
+      <img src="assets/h-outline.png" height="32" />
     </button>
   }
 </ng-template>
